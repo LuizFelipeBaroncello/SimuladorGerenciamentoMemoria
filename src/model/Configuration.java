@@ -12,5 +12,16 @@ public class Configuration{
         this.maxSizeProcess = maxSizeProcess;
     }
 
+    public int getMemorySize() {
+        return memorySize;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public int getMaxSizeProcess() {
+        return maxSizeProcess;
+    }
 
 }

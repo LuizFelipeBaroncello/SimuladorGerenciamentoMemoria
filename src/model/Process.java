@@ -2,27 +2,28 @@ package model;
 
 public class Process {
 
-    private int length;
-    private int id;
+    private int size;
+    private String id;
     
-    public Process(int id, int length){
+    public Process(String id, int size){
         this.id = id;
-        this.length = length;
+        this.size = size;
     }
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
-    public int getLength() {
-        return this.length;
+
+    public int getSize() {
+        return this.size;
     }
 
-    public Process setId(int id) {
+    public Process setId(String id) {
         this.id = id;
         return this;
     }
-    public Process setLength(int length) {
-        this.length = length;
+    public Process setSize(int size) {
+        this.size = size;
         return this;
     }
 

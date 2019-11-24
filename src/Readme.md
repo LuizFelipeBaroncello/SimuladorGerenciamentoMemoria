@@ -41,10 +41,11 @@ Requisitos do trabalho:
     Outros;
 
 Planejamento:
+
     MODELO:
         Memória:
         - Vai ter dentro uma linkedList; (ou arrayList)
-        -- Cada posição é 256 bytes;
+        -- Cada posição é é um byte;
         - Vai ter um tamanho de quadros e funções para retornar um quadro inteiro;
         -- Vai ter uma função para retornar o número de bytes em cada quadro;
         - Vai manter informações sobre quadros usados e quadros vazios;
