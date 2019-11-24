@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.LinkedList;
 
 public class Memory{
 /*
@@ -21,36 +22,80 @@ public class Memory{
         (informe em bytes) validar para ser multiplo de 256
 
 
-
-
-        CADA POSIÇÃO DA MEMÓRIA É UM BIT
-        UM QUADRO TÊM N BITS
-        100 bit memoria 
-        2 bit quadro/pagina
-        
-        |Q|0|W|W|R|R|R|R|R|_|_|_|_|_|0|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_|_| ........
-
-
-
-        q 1
-        w2
-        r 6
-        g 5
-
-    
-        Qual o tamanho da memória em bytes? 
-
 */
 
-    private List<MemoryPosition> phisicalMemory;
-    private int sizeQ
-    private [] 
+    private LinkedList<MemoryPosition> phisicalMemory;
+    private HashMap<Object, LinkedList<MemoryPosition>> mapBoards; 
+
+    // mandar exceção se o calculo tiver errado
+    public Memory(int size, int boardSize) { //VALIDAR SE SIZE TA CRIANDO O NUMERO CORRETO
+        this.phisicalMemory = new LinkedList<MemoryPosition>();
+
+        for (int i = 0; i < size; i++) {
+            this.phisicalMemory.add(new MemoryPosition());
+        }
+
+        System.out.println("===================   Checando tamanho memoria");
+        System.out.println("Tamanho desejado = " + size);
+        System.out.println("Tamanho real = " + phisicalMemory.size());
 
 
+        boardSize = (size / boardSize);
+        // board size têm que ser a quantidade de quadros
+
+        mapBoards = new HashMap<Object, LinkedList<MemoryPosition>>();
+
+        for (int i = 0; i < boardSize; i++) {
+            int initialPosition = (size / boardSize) * i;// (memória / quadros) alocação maxima de quadros
+            int endPosition = ((size / boardSize) * (i+1)) - 1;
+
+            LinkedList<MemoryPosition> subList = new LinkedList<MemoryPosition>();
+
+            for (int j = initialPosition; j < endPosition; j++) {
+                subList.add(phisicalMemory.get(j));
+            }
+
+            mapBoards.put(i, subList);
+        }
+
+        System.out.println("===================   Checando Numero quadros");
+        System.out.println("Numero esperado: " + boardSize);
+        System.out.println("Numero obtido: " + mapBoards.size());
+        
+    }
+
+    // Saber quantas posições foram usadas em um determinado quadro
+    public int countPositionsOnBoard(int boardIndex) {
+        
+    }
+
+    // Saber quantos quadros existem
+    public int countBoards() {
+        
+    }
+
+    // Saber quantos quadros estão usados
+    public int countUsedBoards(){
+        
+    }
+
+    // Saber quantos quadros estão disponíveis
+    public int countAvailableBoards(){
+        return this.mapBoards.size() - this.countUsedBoards();
+    }
+
+    public boolean update
+    // Alterar próximo quadro vazio
+    // Alterar o número de posições utilizadas em um quadro
+    // ToString retornando os quadros com suas posições usadas
 
 
+    //getQuadro(int numeroQuadro)
+    //
 
-getQuadro(3)
+
+    
+        getQuadro(3)
 
  tamanhoQuadro  phisicalMemory.Lenght / numQuadros
 
