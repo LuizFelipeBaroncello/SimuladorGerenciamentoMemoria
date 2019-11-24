@@ -4,26 +4,38 @@ public class MemoryManagementUnit {
     
     private Configuration configuration;
     private Memory memory;
-    private TablePage tablePage;
 
-
-    public  MemoryManagementUnit(int pageSize, int maxSizeProcess, int memorySize){
-        this.createConfiguration(pageSize, maxSizeProcess, memorySize)
-            .createMemory();
+    public  MemoryManagementUnit(int boardSize, int maxSizeProcess, int memorySize) {
+        this.createConfiguration(boardSize, maxSizeProcess, memorySize)
+            .createMemory(memorySize, boardSize);
     }
 
-    public MemoryManagementUnit createMemory() {
+    private MemoryManagementUnit createMemory(int memorySize, int boadSize) {
+        this.memory = new Memory(memorySize, boadSize);
+        return this;
+    }
+
+    private MemoryManagementUnit createConfiguration(int boardSize, int maxSizeProcess, int memorySize) {
+        this.configuration = new Configuration(boardSize, maxSizeProcess, memorySize);
+        return this;
+    }
+
+    public Configuration getConfiguration() {
+        return configuration;
+    }
+
+    public MemoryManagementUnit setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
+        return this;
+    }
+
+    public Memory getMemory() {
+        return memory;
+    }
+
+    public MemoryManagementUnit setMemory(Memory memory) {
         this.memory = memory;
         return this;
     }
 
-    public MemoryManagementUnit createConfiguration(int pageSize, int maxSizeProcess, int memorySize) {
-        this.configuration = new Configuration(pageSize, maxSizeProcess, memorySize);
-        return this;
-    }
-
-    public MemoryManagementUnit setTablePage(TablePage tablePage) {
-        this.tablePage = tablePage;
-        return this;
-    }
 }

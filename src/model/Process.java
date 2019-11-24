@@ -2,9 +2,9 @@ package model;
 
 public class Process {
 
-    private int size;
     private String id;
-    
+    private int size;
+
     public Process(String id, int size){
         this.id = id;
         this.size = size;

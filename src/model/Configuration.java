@@ -3,12 +3,12 @@ package model;
 public class Configuration{
 
     private int memorySize;
-    private int pageSize;
+    private int boardSize;
     private int maxSizeProcess;
 
-    public Configuration(int pageSize, int maxSizeProcess, int memorySize) {
+    public Configuration(int boardSize, int maxSizeProcess, int memorySize) {
         this.memorySize = memorySize;
-        this.pageSize = pageSize;
+        this.boardSize = boardSize;
         this.maxSizeProcess = maxSizeProcess;
     }
 
@@ -16,8 +16,8 @@ public class Configuration{
         return memorySize;
     }
 
-    public int getPageSize() {
-        return pageSize;
+    public int getBoardSize() {
+        return boardSize;
     }
 
     public int getMaxSizeProcess() {

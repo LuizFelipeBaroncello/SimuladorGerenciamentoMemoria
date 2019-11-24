@@ -4,8 +4,8 @@ import java.util.List;
 
 public class TablePage {
 
-    private List<Page> pages;
     private String processID;
+    private List<Page> pages;
 
     public TablePage(List<Page> pages, String processID) {
         this.pages = pages;
