@@ -1,9 +1,5 @@
 package model;
 
-import Memory;
-import Setting;
-import TablePage;
-
 public class MemoryManagementUnit {
     
     private Configuration configuration;
@@ -11,7 +7,7 @@ public class MemoryManagementUnit {
     private TablePage tablePage;
 
 
-    public MemoryManagementUnit initMemoryManagementUnit(int pageSize, int maxSizeProcess, int memorySize){
+    public  MemoryManagementUnit(int pageSize, int maxSizeProcess, int memorySize){
         this.createConfiguration(pageSize, maxSizeProcess, memorySize)
             .createMemory();
     }

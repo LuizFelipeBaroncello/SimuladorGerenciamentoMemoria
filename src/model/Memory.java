@@ -1,12 +1,12 @@
 package model;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Memory{
 
     private LinkedList<MemoryPosition> phisicalMemory;
-    private HashMap<Object, LinkedList<MemoryPosition>> mapBoards; 
+    private HashMap<Object, LinkedList<MemoryPosition>> mapBoards;
     private int usedBoards;
 
     // mandar exceção se o calculo tiver errado
@@ -85,7 +85,7 @@ public class Memory{
     public boolean updateNextEmptyBoard(int numberMemoryPositionUsed) {
         int indexNextEmptyBoard = this.countUsedBoards();
 
-        if (indexNextEmptyBoard < this.countBoards() && memoryPositionUsed != 0) {
+        if (indexNextEmptyBoard < this.countBoards() && numberMemoryPositionUsed != 0) {
             LinkedList<MemoryPosition> board  = mapBoards.get(indexNextEmptyBoard); 
             
             for (int i = 0; i < board.size(); i++) {
@@ -106,49 +106,51 @@ public class Memory{
     // ToString retornando os quadros com suas posições usadas
     @Override
     public String toString() {
-        int boardSize = mapBoards.get(0).size();
-        int boards = Memory.size() / boardSize;
+        int boardSize = this.mapBoards.get(0).size();
+        int boards = this.phisicalMemory.size() / boardSize;
         
-        String stringMemory = '|';
+        String stringMemory = "|";
         
         for (int k = 0; k < boardSize; k++) {
-            stringMemory += '=';
+            stringMemory += "=";
         }
-        stringMemory += '| \n';
+        stringMemory += "| \n";
 
-        for (int i = 0; i < board; i++) {
-            stringMemory += '|';
+        for (int i = 0; i < boards; i++) {
+            stringMemory += "|";
             
             if (mapBoards.get(i) == null) {
-                stringMemory += '|';
+                stringMemory += "|";
 
                 for (int t = 0; t < boardSize; t++) {
-                    stringMemory += '0';
+                    stringMemory += "0";
                 }
 
-                stringMemory += '| \n';
+                stringMemory += "| \n";
 
             } else {
                 
                 LinkedList<MemoryPosition> board  = mapBoards.get(i); 
-                stringMemory += '|';
+                stringMemory += "|";
 
                 for (int w = 0; w < boardSize; w++) {
                     if (board.get(w).isUsed()) {
-                        stringMemory += '1'
+                        stringMemory += "1";
                     } else {
-                        stringMemory += '0'
+                        stringMemory += "0";
                     };
                 }
-                stringMemory += '| \n';
+                stringMemory += "| \n";
             }
         }
-        stringMemory += '|';
+        stringMemory += "|";
 
         for (int y = 0; y < boardSize; y++) {
-            stringMemory += '=';
+            stringMemory += "=";
         }
-        stringMemory += '| \n';
+        stringMemory += "| \n";
+
+        return stringMemory;
     }
     
 }
