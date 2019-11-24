@@ -1,0 +1,17 @@
+package model;
+
+public class MemoryPosition{
+    
+    private Boolean used;
+
+    public MemoryPosition() {
+        this.used = 0;
+    }
+    
+    // set builder que para setar bytesOcupados
+    
+    //get bytes ocupados
+    
+    //get bytes livres
+
+}

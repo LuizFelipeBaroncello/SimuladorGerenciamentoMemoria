@@ -1,0 +1,92 @@
+import javax.swing.JOptionPane;
+ 
+public class InteracaoUsuario {
+     
+    public InteracaoUsuario() {
+        super();
+    }
+     
+    public int recebeIntComRestricao(String mensagem, int valorMinimo, int valorMaximo){
+         
+        boolean verificadorDeInt = true;
+        boolean repetidor = false;
+        int intRecebido = -1;
+             
+        do{
+            String stringInt = JOptionPane.showInputDialog(mensagem);
+            try {
+                Integer.parseInt(stringInt);
+                verificadorDeInt = true;
+            }catch (NumberFormatException nfe){
+                verificadorDeInt = false;
+            }
+                 
+            if(verificadorDeInt == true){
+                intRecebido = Integer.parseInt(stringInt);
+            }else{
+                this.exibeMensagem("Por favor digite apenas numeros");
+                repetidor = true;
+            }
+             
+            if(intRecebido >= valorMinimo && intRecebido <= valorMaximo && verificadorDeInt == true){
+                repetidor = false;
+            }else{
+                if(verificadorDeInt == true){
+                    repetidor = true;
+                    this.exibeMensagem("O número digitado não atende aos parametros, favor tentar novamente.");
+                }
+            }
+        }while(repetidor);
+     
+        return intRecebido;
+         
+    }
+ 
+    public double recebeDoubleComRestricao(String mensagem, int valorMinimo, int valorMaximo){
+         
+        boolean verificadorDeDouble = true;
+        boolean repetidor = false;
+        Double doubleRecebido = 0.0;
+         
+        do{
+            String stringDouble = JOptionPane.showInputDialog(mensagem);
+            try {
+                Double.parseDouble(stringDouble);
+                verificadorDeDouble = true;
+            }catch (NumberFormatException nfe){
+                verificadorDeDouble = false;
+            }
+                 
+            if(verificadorDeDouble == true){
+                doubleRecebido = Double.parseDouble(stringDouble);
+            }else{
+                this.exibeMensagem("Por favor digite apenas numeros");
+                repetidor = true;
+            }
+ 
+             
+            if(doubleRecebido >= valorMinimo && doubleRecebido <= valorMaximo && verificadorDeDouble == true){
+                repetidor = false;
+            }else{
+                if(verificadorDeDouble == true){
+                    repetidor = true;
+                    this.exibeMensagem("O número digitado não atende aos parametros, favor tentar novamente.");
+                }
+            }
+        }while(repetidor);
+ 
+        return doubleRecebido;
+    }
+     
+    public String recebeString(String mensagem){
+         
+        String stringRecebida = JOptionPane.showInputDialog(mensagem);
+        return stringRecebida;
+    }
+     
+    public void exibeMensagem(String mensagem){
+         
+        JOptionPane.showMessageDialog(null, mensagem);
+    }
+ 
+}

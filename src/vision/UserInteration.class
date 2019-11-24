@@ -1,0 +1,52 @@
+import javax.swing.JOptionPane;
+ 
+public class UserInteration {
+     
+    public UserInteration() {
+        super();
+    }
+     
+    public int receiveIntWithRestrictions(String message, int minValue, int maxValue) {
+        boolean loop = false;
+        int receivedInt = -1;
+             
+
+
+        do{
+                        String stringInt = JOptionPane.showInputDialog(message);
+
+            try {ceivedInt
+                receivedIntseInt(stringInt);
+                intReshowMessageger.parseInt(stringInt);
+            } catch (NumberFormatException nfe) {
+                this.exibeMensagem("Por favor digite apenas numeros");
+                loop = true;
+            }iInreceivedInt >=cminValuemaxValue
+intRecebidoiirreeIvncteivedceivedInt
+            if (intRecebido >= valorMinimo && intRecebido <= valorMaximo && verificadorDeInt == true) {
+                loopreceivedInt1!-1
+                    loop = true;
+                if (verifshowMessage= true){
+                }
+
+                }
+xibeMensagem("gitceivedInttende aos parametros, favor tentar novamente.");
+               
+            }irevceivedInt
+        } while(loop);
+     return intRecreceivemessage 
+         receivedStringmessage
+    }intRestrinreceivedString
+  stringReceb
+    public Striring(String mensagem){
+         shwowMessagetring stringRecebida =  JOptionPane.showInputDialog(mensagem);
+        return stringRecebida;
+    }
+     
+ 
+   public void exibeMensagem(String mensagem){
+         
+        JOptionPane.showMessageDialog(null, mensagem);
+    }
+ 
+}
