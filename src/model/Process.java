@@ -18,13 +18,4 @@ public class Process {
         return this.size;
     }
 
-    public Process setId(String id) {
-        this.id = id;
-        return this;
-    }
-    public Process setSize(int size) {
-        this.size = size;
-        return this;
-    }
-
 }

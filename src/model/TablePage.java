@@ -12,27 +12,21 @@ public class TablePage {
         this.processID = processID;
     }
 
-    public List getPages() {
-        return pages;
-    }
-
-    public TablePage setPages(List<Page> pages) {
-        this.pages = pages;
-        return this;
-    }
-
-    public TablePage addPage(Page page) {
-        this.pages.add(page);
-        return this;
-    }
-
     public String getProcessID() {
         return processID;
     }
 
-    public TablePage setProcessID(String processID) {
-        this.processID = processID;
-        return this;
+    @Override
+    public String toString() {
+        String string = "| index | page |\n" +
+                        "________________ \n";
+
+        for (int i = 0; i < this.pages.size(); i++) {
+            string +=  "|   "+ i + "   |  " + pages.get(i).getBoardIndex() + "   |\n"+
+                        "________________ \n";
+        }
+
+        return string;
     }
 
 }

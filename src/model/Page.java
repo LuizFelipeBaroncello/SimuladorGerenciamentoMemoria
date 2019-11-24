@@ -12,9 +12,4 @@ public class Page {
         return boardIndex;
     }
 
-    public Page setBoardIndex(int boardIndex) {
-        this.boardIndex = boardIndex;
-        return this;
-    }
-
 }

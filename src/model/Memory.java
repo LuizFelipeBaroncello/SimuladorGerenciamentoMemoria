@@ -38,7 +38,7 @@ public class Memory{
 
             LinkedList<MemoryPosition> subList = new LinkedList<MemoryPosition>();
 
-            for (int j = initialPosition; j < endPosition; j++) {
+            for (int j = initialPosition; j <= endPosition; j++) {
                 subList.add(phisicalMemory.get(j));
             }
 
@@ -113,6 +113,10 @@ public class Memory{
 
         int boardsNeeded = processSize / this.boardSize;
 
+        if ((boardsNeeded * boardSize) < processSize) {
+            boardsNeeded++;
+        }
+
         if (boardsNeeded > this.countAvailableBoards()) {
             //throw criar execeção para quando exede o tamanho da memória diponivel
         } else {
@@ -132,8 +136,7 @@ public class Memory{
     // ToString retornando os quadros com suas posições usadas
     @Override
     public String toString() {
-        int boardSize = this.mapBoards.get(0).size();
-        int boards = this.phisicalMemory.size() / boardSize;
+        int boards = mapBoards.size();
         
         String stringMemory = "|";
         

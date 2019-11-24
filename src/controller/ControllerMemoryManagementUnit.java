@@ -3,6 +3,8 @@ package controller;
 
 import model.Configuration;
 import model.Memory;
+import model.Page;
+import model.Process;
 import model.TablePage;
 import vision.UserInteraction;
 
@@ -62,18 +64,60 @@ public class ControllerMemoryManagementUnit {
     }
 
     private void showTable() {
-        //         Criar Exibir tabela
-        // pegar o id do processo, e exibir a tabela desse id;
+        String processId = ui.receiveString("Digite o id do processo que deseja visualizar a tabela de páginas:");
+
+        // tratar exceção para caso processo não exista
+        Process process = this.findProcess(processId);
+        TablePage tablePage = this.findTableProcess(processId);
+
+        ui.showMessage("O processo (" + processId + ") contém as seguintes informações: \n\n" +
+                                  "Tamanho: " + process.getSize() + "\n" +
+                                  "Tabela de páginas: " + tablePage.toString());
+    }
+
+    private TablePage findTableProcess(String processId) {
+        int indexTable = -1;
+
+        for (int i = 0; i < tablesPages.size(); i++) {
+            if (this.tablesPages.get(i).getProcessID().equals(processId)) {
+                indexTable = i;
+            }
+        }
+
+        if (indexTable == -1) {
+//            throw mandar execeção de processo não encontrado
+        }
+
+        return this.tablesPages.get(indexTable);
+
+    }
+
+    private Process findProcess(String processId) {
+        int indexProcess = -1;
+
+        for (int i = 0; i < processes.size(); i++) {
+            if (this.processes.get(i).getId().equals(processId)) {
+                indexProcess = i;
+            }
+        }
+
+        if (indexProcess == -1) {
+//            throw mandar execeção de processo não encontrado
+        }
+
+        return this.processes.get(indexProcess);
     }
 
     private void showMemory() {
-        //         Criar exibir memória(pode exibir inteira, ou baseada em quadros)
-    }
+        ui.showMessage(this.memory.toString());
+     }
 
     private void createNewProcess() {
         int maxSizeProcess = this.configuration.getMaxSizeProcess();
-        String idProcess = ui.receiveString("Você está criando um novo processo.\n\n" +
+        String processId = ui.receiveString("Você está criando um novo processo.\n\n" +
                          "Por favor digite o id desejado para o processo.");
+        // se o id já estiver sendo usado nãoo deixar criar CELLO
+
         int processSize = ui.receiveInt("Você está criando um novo processo.\n\n" +
                                 "Por favor digite o tamanho do processo (em bytes)" , 1 , maxSizeProcess,
                    "O tamanho digitado não atende aos parâmetros (entre 1 e " + maxSizeProcess + ")");
@@ -81,23 +125,29 @@ public class ControllerMemoryManagementUnit {
         // fazer try catch para mostrar mensagem de erro caso o processo não possa ser adicionado (não há memória disponíbel)
         if (this.memory.countAvailableBoards() > 0) {
             List<Integer> usedBoards = this.memory.addNewProcess(processSize);
+            List<Page> pages = new ArrayList<>();
 
-//            TablePage teste = new TablePage();
+            for (int i = 0; i < usedBoards.size(); i++) {
+                pages.add(new Page(usedBoards.get(i)));
+            }
 
-  //          this.tablesPages.add();
-            //implementar lógica para paginas e criar a tabela de processos para o processo e adicionar o mesmo na lista de processos
+            TablePage tablePageProcess = new TablePage(pages, processId);
 
-            ui.showMessage("Processo de id (" + idProcess + ") cadastrado com sucesso!!!");
+            this.processes.add(new Process(processId, processSize));
+            this.tablesPages.add(tablePageProcess);
+
+            ui.showMessage("Processo de id (" + processId + ") cadastrado com sucesso!!!");
 
         } else {
             ui.showMessage("Não foi possível adicionar um novo processo, a memória está cheia");
         }
     }
 
-//int memorySize = 1000, boardSize = 10, maxSizeProcess = 25;
+
 
     private void initialConfiguration() {
-        int memorySize = 0, boardSize = 0, maxSizeProcess = 0;
+        //int memorySize = 0, boardSize = 0, maxSizeProcess = 0;
+        int memorySize = 100, boardSize = 10, maxSizeProcess = 25;
 
         //Configuração
 

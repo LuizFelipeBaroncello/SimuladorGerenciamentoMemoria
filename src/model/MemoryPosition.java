@@ -17,9 +17,4 @@ public class MemoryPosition {
         return this;
     }
 
-    public MemoryPosition unUsed() {
-        this.used = false;
-        return this;
-    }
-
 }
