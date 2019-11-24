@@ -8,7 +8,11 @@ public class UserInteraction {
         super();
     }
 
-    public int receiveInt(String message, int minValue, int maxValue){
+    public int receiveInt(String message, int minValue, int maxValue) {
+        return this.receiveInt(message, minValue, maxValue, "O número digitado não atende aos parametros, favor tentar novamente.");
+    }
+
+    public int receiveInt(String message, int minValue, int maxValue, String errorMessage) {
         boolean loop = false;
         int receivedInteger = -1;
 
@@ -21,7 +25,7 @@ public class UserInteraction {
                     loop = false;
                 } else {
                     loop = true;
-                    this.showMessage("O número digitado não atende aos parametros, favor tentar novamente.");
+                    this.showMessage(errorMessage);
                 }
             } catch (NumberFormatException nfe) {
                 this.showMessage("Por favor digite apenas numeros");
@@ -31,7 +35,6 @@ public class UserInteraction {
         } while(loop);
 
         return receivedInteger;
-
     }
 
     public String receiveString(String message){

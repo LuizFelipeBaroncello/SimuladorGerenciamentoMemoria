@@ -3,7 +3,11 @@ package controller;
 
 import model.Configuration;
 import model.Memory;
+import model.TablePage;
 import vision.UserInteraction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControllerMemoryManagementUnit {
 
@@ -11,30 +15,32 @@ public class ControllerMemoryManagementUnit {
 
     private Configuration configuration;
     private Memory memory;
-
+    private List<TablePage> tablesPages;
+    private List<Process> processes;
 
     public ControllerMemoryManagementUnit() {
         this.ui = new UserInteraction();
+        this.tablesPages = new ArrayList<TablePage>();
+        this.processes = new ArrayList<Process>();
     }
 
     public void init() {
         ui.showMessage("Olá, seja bem vindo ao trabalho 2 de Sistemas Operacionais");
         this.initialConfiguration();
         this.controlMenuOptions();
+        ui.showMessage("Obrigado por usar o programa...");
     }
 
     private void controlMenuOptions() {
         boolean running = true;
-        // Mostrar menu de opções
-        // 1 - Criar um novo processo (procID, tamanho)
-        // 2 - Exibir memória()
-        // 3 - Exibir tabela(procID) (Exibe a tabela de páginas e o tamanho do processo)
-        // 4 - Sair
-
-        // validar se ele clicar ou digitar outra coisa
 
         do {
-            int choosedOption = ui.receiveInt("Mostrar opções", 1, 4);
+            int choosedOption = ui.receiveInt(
+                "Digite um número para escolher uma das opções abaixo:\n" +
+                         "1 - Criar um novo processo;\n" +
+                         "2 - Exibir memória;\n" +
+                         "3 - Exibir tabela;\n" +
+                         "4 - Sair.", 1, 4);
 
             switch (choosedOption) {
                 case 1:
@@ -65,9 +71,30 @@ public class ControllerMemoryManagementUnit {
     }
 
     private void createNewProcess() {
-        System.out.println("Criar criador de novo processo");
+        int maxSizeProcess = this.configuration.getMaxSizeProcess();
+        String idProcess = ui.receiveString("Você está criando um novo processo.\n\n" +
+                         "Por favor digite o id desejado para o processo.");
+        int processSize = ui.receiveInt("Você está criando um novo processo.\n\n" +
+                                "Por favor digite o tamanho do processo (em bytes)" , 1 , maxSizeProcess,
+                   "O tamanho digitado não atende aos parâmetros (entre 1 e " + maxSizeProcess + ")");
+
+        // fazer try catch para mostrar mensagem de erro caso o processo não possa ser adicionado (não há memória disponíbel)
+        if (this.memory.countAvailableBoards() > 0) {
+            List<Integer> usedBoards = this.memory.addNewProcess(processSize);
+
+//            TablePage teste = new TablePage();
+
+  //          this.tablesPages.add();
+            //implementar lógica para paginas e criar a tabela de processos para o processo e adicionar o mesmo na lista de processos
+
+            ui.showMessage("Processo de id (" + idProcess + ") cadastrado com sucesso!!!");
+
+        } else {
+            ui.showMessage("Não foi possível adicionar um novo processo, a memória está cheia");
+        }
     }
 
+//int memorySize = 1000, boardSize = 10, maxSizeProcess = 25;
 
     private void initialConfiguration() {
         int memorySize = 0, boardSize = 0, maxSizeProcess = 0;

@@ -1,17 +1,21 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Memory{
 
     private LinkedList<MemoryPosition> phisicalMemory;
     private HashMap<Object, LinkedList<MemoryPosition>> mapBoards;
     private int usedBoards;
+    private int boardSize;
 
     // mandar exceção se o calculo tiver errado
     public Memory(int size, int boardSize) { //VALIDAR SE SIZE TA CRIANDO O NUMERO CORRETO
         this.usedBoards = 0;
+        this.boardSize = boardSize;
         this.phisicalMemory = new LinkedList<MemoryPosition>();
 
         for (int i = 0; i < size; i++) {
@@ -71,7 +75,7 @@ public class Memory{
         return this.countBoards() - 1;
     }
 
-    // Saber quantos quadros estão usadosindexNextEmptyBoard
+    // Saber quantos quadros estão usados indexNextEmptyBoard
     public int countUsedBoards() {
         return usedBoards;
     }
@@ -101,6 +105,28 @@ public class Memory{
         } else {
             return false;
         }
+    }
+
+    //Adiciona um novo processo e retorna uma lista com os idex dos quadros usados
+    public List<Integer> addNewProcess(int processSize) {
+        List<Integer> usedBoards = new ArrayList<Integer>();
+
+        int boardsNeeded = processSize / this.boardSize;
+
+        if (boardsNeeded > this.countAvailableBoards()) {
+            //throw criar execeção para quando exede o tamanho da memória diponivel
+        } else {
+            for (int i = 0; i < boardsNeeded; i++) {
+                if (i == boardsNeeded-1) {
+                    this.updateNextEmptyBoard(processSize % boardSize);
+                } else {
+                    this.updateNextEmptyBoard(this.boardSize);
+                }
+                usedBoards.add(this.getLastIndex());
+            }
+        }
+
+        return usedBoards;
     }
 
     // ToString retornando os quadros com suas posições usadas
