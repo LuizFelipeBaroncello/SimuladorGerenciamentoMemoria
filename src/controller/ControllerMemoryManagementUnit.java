@@ -108,15 +108,36 @@ public class ControllerMemoryManagementUnit {
         return this.processes.get(indexProcess);
     }
 
+    private boolean existProcess(String processId) {
+        for (int i = 0; i < processes.size(); i++) {
+            if (this.processes.get(i).getId().equals(processId)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private void showMemory() {
         ui.showMessage(this.memory.toString());
      }
 
     private void createNewProcess() {
+        boolean loopGetProcessId = false;
         int maxSizeProcess = this.configuration.getMaxSizeProcess();
-        String processId = ui.receiveString("Você está criando um novo processo.\n\n" +
-                         "Por favor digite o id desejado para o processo.");
-        // se o id já estiver sendo usado nãoo deixar criar CELLO
+        String processId = "";
+
+        do {
+            processId = ui.receiveString("Você está criando um novo processo.\n\n" +
+                    "Por favor digite o id desejado para o processo.");
+
+            if (this.existProcess(processId)) {
+                loopGetProcessId = true;
+                ui.showMessage("Esse id de processo já está em uso.");
+            } else {
+                loopGetProcessId = false;
+            }
+        } while (loopGetProcessId);
 
         int processSize = ui.receiveInt("Você está criando um novo processo.\n\n" +
                                 "Por favor digite o tamanho do processo (em bytes)" , 1 , maxSizeProcess,
@@ -142,8 +163,6 @@ public class ControllerMemoryManagementUnit {
             ui.showMessage("Não foi possível adicionar um novo processo, a memória está cheia");
         }
     }
-
-
 
     private void initialConfiguration() {
         //int memorySize = 0, boardSize = 0, maxSizeProcess = 0;

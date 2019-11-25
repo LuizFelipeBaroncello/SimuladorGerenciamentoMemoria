@@ -22,13 +22,7 @@ public class Memory{
             this.phisicalMemory.add(new MemoryPosition());
         }
 
-        System.out.println("===================   Checando tamanho memoria");
-        System.out.println("Tamanho desejado = " + size);
-        System.out.println("Tamanho real = " + phisicalMemory.size());
-
-
         int boardNumber = (size / boardSize);
-        // board size têm que ser a quantidade de quadros
 
         mapBoards = new HashMap<Object, LinkedList<MemoryPosition>>();
 
@@ -45,16 +39,12 @@ public class Memory{
             mapBoards.put(i, subList);
         }
 
-        System.out.println("===================   Checando Numero quadros");
-        System.out.println("Numero esperado: " + boardNumber);
-        System.out.println("Numero obtido: " + mapBoards.size());
-        
     }
 
     // Saber quantas posições foram usadas em um determinado quadro
     public int countPositionsOnBoard(int boardIndex) {
         if (boardIndex < this.countBoards()){ // algo assim ou o try catch msm, tu que sabe
-            LinkedList<MemoryPosition> board  = mapBoards.get(boardIndex); 
+            LinkedList<MemoryPosition> board  = mapBoards.get(boardIndex);
             int usedBits = 0;
             for(int i = 0; i < board.size(); i++){
                 usedBits++;
