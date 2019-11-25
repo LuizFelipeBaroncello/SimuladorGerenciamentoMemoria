@@ -171,20 +171,35 @@ public class ControllerMemoryManagementUnit {
     }
 
     private void initialConfiguration() {
-        //int memorySize = 0, boardSize = 0, maxSizeProcess = 0;
-        int memorySize = 100, boardSize = 10, maxSizeProcess = 25;
+        int memorySize = 0, boardSize = 0, maxSizeProcess = 0;
 
-        //Configuração
+        boolean loop = false;
 
-        // Dizer para entrar com o tamanho de memória desejado
-        // -- Validar se o tamanho está correto (é multiplo de 2)
-        //Dizer para entrar com o tamanho de uma pagina
-        // -- Validar se é multiplo de 2 e se é um divisor da memória
-        //Dizer para entrar com o tamanho máximo que um processo pode assumir
-        // -- Validar se é diferente de 0; (pode ser maior que a memória, é só dar erro dps)
+        do {
+            memorySize = ui.receiveInt("Entre com o tamanho da memória: ",
+                    1, 999999, "O número digitado não atende aos parametros, favor tentar novamente.");
+            if( memorySize % 2 == 0) {
+                loop = false;
+            } else {
+                ui.showMessage("Por favor digite um valor par");
+                loop = true;
+            }
+        } while (loop);
 
+        do {
+            boardSize = ui.receiveInt("Entre com o tamanho da pagina: ",
+                    1, memorySize, "O número digitado não atende aos parametros, favor tentar novamente.");
+            if(memorySize % boardSize == 0) {
+                loop = false;
+            } else {
+                ui.showMessage("Por favor digite um tamanho de quadro que seja divisor da memoria");
+                loop = true;
+            }
+        } while (loop);
 
-        //Deve ao final do método conter as variáveis validas
+        maxSizeProcess = ui.receiveInt("Entre com o tamanho máximo que os processos criados poderão ter.",
+                1, 999999, "O número digitado não atende aos parametros, favor tentar novamente.");
+
         this.memory = new Memory(memorySize, boardSize);
         this.configuration = new Configuration(boardSize, maxSizeProcess, memorySize);
 
