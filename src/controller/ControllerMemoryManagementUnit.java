@@ -1,6 +1,7 @@
 package controller;
 
 
+import exceptions.MemoryOutOfBound;
 import model.Configuration;
 import model.Memory;
 import model.Page;
@@ -145,20 +146,23 @@ public class ControllerMemoryManagementUnit {
 
         // fazer try catch para mostrar mensagem de erro caso o processo não possa ser adicionado (não há memória disponíbel)
         if (this.memory.countAvailableBoards() > 0) {
-            List<Integer> usedBoards = this.memory.addNewProcess(processSize);
-            List<Page> pages = new ArrayList<>();
+            try {
+                List<Integer> usedBoards = this.memory.addNewProcess(processSize);
+                List<Page> pages = new ArrayList<>();
 
-            for (int i = 0; i < usedBoards.size(); i++) {
-                pages.add(new Page(usedBoards.get(i)));
+                for (int i = 0; i < usedBoards.size(); i++) {
+                    pages.add(new Page(usedBoards.get(i)));
+                }
+
+                TablePage tablePageProcess = new TablePage(pages, processId);
+
+                this.processes.add(new Process(processId, processSize));
+                this.tablesPages.add(tablePageProcess);
+
+                ui.showMessage("Processo de id (" + processId + ") cadastrado com sucesso!!!");
+            }catch (MemoryOutOfBound e){
+                ui.showMessage(e.getMessage());
             }
-
-            TablePage tablePageProcess = new TablePage(pages, processId);
-
-            this.processes.add(new Process(processId, processSize));
-            this.tablesPages.add(tablePageProcess);
-
-            ui.showMessage("Processo de id (" + processId + ") cadastrado com sucesso!!!");
-
         } else {
             ui.showMessage("Não foi possível adicionar um novo processo, a memória está cheia");
         }
