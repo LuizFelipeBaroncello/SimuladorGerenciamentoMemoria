@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.MemoryOutOfBound;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -108,7 +110,7 @@ public class Memory{
     }
 
     //Adiciona um novo processo e retorna uma lista com os idex dos quadros usados
-    public List<Integer> addNewProcess(int processSize) {
+    public List<Integer> addNewProcess(int processSize) throws MemoryOutOfBound{
         List<Integer> usedBoards = new ArrayList<Integer>();
 
         int boardsNeeded = processSize / this.boardSize;
@@ -119,6 +121,7 @@ public class Memory{
 
         if (boardsNeeded > this.countAvailableBoards()) {
             //throw criar execeção para quando exede o tamanho da memória diponivel
+            throw new MemoryOutOfBound("memoria sem expaço disponivel");
         } else {
             for (int i = 0; i < boardsNeeded; i++) {
                 if (i == boardsNeeded-1) {
