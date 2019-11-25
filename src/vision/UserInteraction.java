@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 public class UserInteraction {
 
+    boolean showConsole = false;
     public UserInteraction() {
         super();
     }
@@ -44,5 +45,10 @@ public class UserInteraction {
     public void showMessage(String mensagem){
         JOptionPane.showMessageDialog(null, mensagem);
     }
+
+    public void showConsole(String mensagem){
+        System.out.printf(mensagem);
+    }
+
 
 }

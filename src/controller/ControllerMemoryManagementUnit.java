@@ -2,6 +2,7 @@ package controller;
 
 
 import exceptions.MemoryOutOfBound;
+import exceptions.ProcessNotFound;
 import model.Configuration;
 import model.Memory;
 import model.Page;
@@ -65,15 +66,19 @@ public class ControllerMemoryManagementUnit {
     }
 
     private void showTable() {
-        String processId = ui.receiveString("Digite o id do processo que deseja visualizar a tabela de páginas:");
+        try {
+            String processId = ui.receiveString("Digite o id do processo que deseja visualizar a tabela de páginas:");
 
-        // tratar exceção para caso processo não exista
-        Process process = this.findProcess(processId);
-        TablePage tablePage = this.findTableProcess(processId);
+            // tratar exceção para caso processo não exista
+            Process process = this.findProcess(processId);
+            TablePage tablePage = this.findTableProcess(processId);
 
-        ui.showMessage("O processo (" + processId + ") contém as seguintes informações: \n\n" +
-                                  "Tamanho: " + process.getSize() + "\n" +
-                                  "Tabela de páginas: " + tablePage.toString());
+            ui.showMessage("O processo (" + processId + ") contém as seguintes informações: \n\n" +
+                    "Tamanho: " + process.getSize() + "\n" +
+                    "Tabela de páginas: " + tablePage.toString());
+        }catch (ProcessNotFound e){
+            ui.showMessage(e.getMessage());
+        }
     }
 
     private TablePage findTableProcess(String processId) {
@@ -93,7 +98,7 @@ public class ControllerMemoryManagementUnit {
 
     }
 
-    private Process findProcess(String processId) {
+    private Process findProcess(String processId) throws ProcessNotFound {
         int indexProcess = -1;
 
         for (int i = 0; i < processes.size(); i++) {
@@ -104,6 +109,7 @@ public class ControllerMemoryManagementUnit {
 
         if (indexProcess == -1) {
 //            throw mandar execeção de processo não encontrado
+            throw new ProcessNotFound("Processo não encontrado");
         }
 
         return this.processes.get(indexProcess);
