@@ -49,7 +49,9 @@ public class Memory{
             LinkedList<MemoryPosition> board  = mapBoards.get(boardIndex);
             int usedBits = 0;
             for(int i = 0; i < board.size(); i++){
-                usedBits++;
+                if (board.get(i).isUsed()) {
+                    usedBits++;
+                }
             }
             return usedBits;
         } else {
@@ -131,7 +133,7 @@ public class Memory{
     public String toString() {
         int boards = mapBoards.size();
         
-        String stringMemory = "|";
+        String stringMemory = "||";
         
         for (int k = 0; k < boardSize; k++) {
             stringMemory += "=";
@@ -148,7 +150,7 @@ public class Memory{
                     stringMemory += "0";
                 }
 
-                stringMemory += "| \n";
+                stringMemory += "| => 0 \n";
 
             } else {
                 
@@ -162,10 +164,10 @@ public class Memory{
                         stringMemory += "0";
                     };
                 }
-                stringMemory += "| \n";
+                stringMemory += "| => " + this.countPositionsOnBoard(i) + "\n";
             }
         }
-        stringMemory += "|";
+        stringMemory += "||";
 
         for (int y = 0; y < boardSize; y++) {
             stringMemory += "=";
