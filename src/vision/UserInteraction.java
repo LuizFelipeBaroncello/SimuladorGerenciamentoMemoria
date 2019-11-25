@@ -1,6 +1,6 @@
 package vision;
 
-import javax.swing.JOptionPane;
+import java.util.Scanner;
 
 public class UserInteraction {
 
@@ -18,7 +18,9 @@ public class UserInteraction {
         int receivedInteger = -1;
 
         do {
-            String stringInt = JOptionPane.showInputDialog(message);
+            System.out.println(message);
+
+            String stringInt = new Scanner(System.in).next();
             try {
                 Integer.parseInt(stringInt);
                 receivedInteger = Integer.parseInt(stringInt);
@@ -38,12 +40,13 @@ public class UserInteraction {
         return receivedInteger;
     }
 
-    public String receiveString(String message){
-        return JOptionPane.showInputDialog(message);
+    public String receiveString(String message) {
+        System.out.println(message);
+        return new Scanner(System.in).next();
     }
 
-    public void showMessage(String mensagem){
-        JOptionPane.showMessageDialog(null, mensagem);
+    public void showMessage(String message){
+        System.out.println(message);
     }
 
     public void showConsole(String mensagem){
