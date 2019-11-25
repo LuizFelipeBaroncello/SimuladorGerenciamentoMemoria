@@ -69,7 +69,6 @@ public class ControllerMemoryManagementUnit {
         try {
             String processId = ui.receiveString("Digite o id do processo que deseja visualizar a tabela de páginas:");
 
-            // tratar exceção para caso processo não exista
             Process process = this.findProcess(processId);
             TablePage tablePage = this.findTableProcess(processId);
 
@@ -108,7 +107,6 @@ public class ControllerMemoryManagementUnit {
         }
 
         if (indexProcess == -1) {
-//            throw mandar execeção de processo não encontrado
             throw new ProcessNotFound("Processo não encontrado");
         }
 
@@ -135,8 +133,7 @@ public class ControllerMemoryManagementUnit {
         String processId = "";
 
         do {
-            processId = ui.receiveString("Você está criando um novo processo.\n\n" +
-                    "Por favor digite o id desejado para o processo.");
+            processId = ui.receiveString("Por favor digite o id desejado para o processo.");
 
             if (this.existProcess(processId)) {
                 loopGetProcessId = true;
@@ -146,8 +143,7 @@ public class ControllerMemoryManagementUnit {
             }
         } while (loopGetProcessId);
 
-        int processSize = ui.receiveInt("Você está criando um novo processo.\n\n" +
-                                "Por favor digite o tamanho do processo (em bytes)" , 1 , maxSizeProcess,
+        int processSize = ui.receiveInt("Por favor digite o tamanho do processo (em bytes)" , 1 , maxSizeProcess,
                    "O tamanho digitado não atende aos parâmetros (entre 1 e " + maxSizeProcess + ")");
 
         // fazer try catch para mostrar mensagem de erro caso o processo não possa ser adicionado (não há memória disponíbel)
@@ -166,7 +162,7 @@ public class ControllerMemoryManagementUnit {
                 this.tablesPages.add(tablePageProcess);
 
                 ui.showMessage("Processo de id (" + processId + ") cadastrado com sucesso!!!");
-            }catch (MemoryOutOfBound e){
+            } catch (MemoryOutOfBound e){
                 ui.showMessage(e.getMessage());
             }
         } else {

@@ -64,7 +64,7 @@ public class Memory{
 
     // Retorna o index do ultimo quadro usado
     public int getLastIndex() {
-        return this.countBoards() - 1;
+        return this.countUsedBoards() - 1;
     }
 
     // Saber quantos quadros estão usados indexNextEmptyBoard
@@ -100,7 +100,7 @@ public class Memory{
     }
 
     //Adiciona um novo processo e retorna uma lista com os idex dos quadros usados
-    public List<Integer> addNewProcess(int processSize) throws MemoryOutOfBound{
+    public List<Integer> addNewProcess(int processSize) throws MemoryOutOfBound {
         List<Integer> usedBoards = new ArrayList<Integer>();
 
         int boardsNeeded = processSize / this.boardSize;
