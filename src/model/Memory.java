@@ -94,6 +94,7 @@ public class Memory{
                 numberMemoryPositionUsed--;
             }
 
+            // variavel global para controle de quadros usados
             usedBoards++;
             return true;
         } else {
@@ -116,7 +117,7 @@ public class Memory{
             throw new MemoryOutOfBound("memoria sem expaço disponivel");
         } else {
             for (int i = 0; i < boardsNeeded; i++) {
-                if (i == boardsNeeded-1) {
+                if ((i == boardsNeeded-1) && 0 != (processSize % boardSize)) { //se a utima for cheia bugga
                     this.updateNextEmptyBoard(processSize % boardSize);
                 } else {
                     this.updateNextEmptyBoard(this.boardSize);
